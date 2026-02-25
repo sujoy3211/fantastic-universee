@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const memories = [
-  { id: 1, caption: "The First Day" },
-  { id: 2, caption: "Late Night Talks" },
-  { id: 3, caption: "The Epic Road Trip" },
-  { id: 4, caption: "Brothers Forever" },
-  { id: 5, caption: "Victory Celebration" },
-  { id: 6, caption: "Sunset Squad" },
+  { id: 1, caption: "Happy Birthday Swastika । Alp । Kashmiri Naan । সেই রাত মনে আছে ? 🫢", image: "/that.jpg" },
+  { id: 2, caption: "Late Night spending - গাজ্ন মেলা ", image: "/this.jpg" },
+  { id: 3, caption: "After this photo , the group created : Fantastic four 😍", image: "/when.jpg" },
+  { id: 4, caption: "Brothers From another mothers", image: "/jug.jpg" },
+  { id: 5, caption: "No Alcohol - গাছে হাত দেবেন না 🙊", image: "/kol.jpg" },
+  { id: 6, caption: "সেই ঐতিহাসিক কালীপূজার রাত 💀", image: "/cool.jpg" },
 ];
 
 const MemoryVault = () => {
@@ -56,13 +56,23 @@ const MemoryVault = () => {
                 whileHover={{ rotate: 0, scale: 1.08, y: -10 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                {/* Photo placeholder */}
-                <div className="w-full aspect-square bg-secondary rounded-sm flex items-center justify-center overflow-hidden">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">📸</div>
-                    <p className="font-body text-xs text-muted-foreground">Add your photo</p>
-                  </div>
-                </div>
+               {/* Photo Display Section */}
+<div className="w-full aspect-square bg-secondary rounded-sm overflow-hidden">
+  {memory.image ? (
+    <img 
+      src={memory.image} 
+      alt={memory.caption} 
+      className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
+    />
+  ) : (
+    <div className="flex flex-col items-center justify-center h-full text-center">
+      <div className="text-4xl mb-2">📸</div>
+      <p className="font-body text-xs text-muted-foreground uppercase tracking-widest">
+        Add your photo
+      </p>
+    </div>
+  )}
+</div>
 
                 {/* Caption */}
                 <p className="absolute bottom-4 left-0 right-0 text-center font-body text-sm text-muted-foreground tracking-wide">

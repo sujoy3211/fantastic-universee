@@ -4,15 +4,16 @@ import { ReactNode } from "react";
 interface HeroCardProps {
   name: string;
   title: string;
+  image: string;
   bio: string;
   glowClass: string;
   textGlowClass: string;
   colorClass: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   delay: number;
 }
 
-const HeroCard = ({ name, title, bio, glowClass, textGlowClass, colorClass, icon, delay }: HeroCardProps) => {
+const HeroCard = ({ name, title, image, bio, glowClass, textGlowClass, colorClass,  delay }: HeroCardProps) => {
   return (
     <motion.div
       className={`relative group rounded-xl border border-border bg-card/60 backdrop-blur-sm p-6 md:p-8 overflow-hidden transition-all duration-500 hover:scale-105 ${glowClass}`}
@@ -22,34 +23,39 @@ const HeroCard = ({ name, title, bio, glowClass, textGlowClass, colorClass, icon
       transition={{ duration: 0.6, delay }}
       whileHover={{ y: -5 }}
     >
-      {/* Animated background effect */}
-      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-        {icon}
+      {/* Photo Background Fix */}
+      <div className="absolute inset-0 z-0 overflow-hidden rounded-xl">
+        <img 
+          src={image} 
+          alt={name} 
+          className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500" 
+        />
+        {/* Subtle gradient so text is readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
       </div>
 
-      <div className="relative z-10">
+     {/* This container pushes the text to the bottom so your faces are clear */}
+      <div className="relative z-10 p-6 flex flex-col min-h-[480px] justify-end">
         <motion.div
           className={`text-4xl md:text-5xl mb-3 ${colorClass}`}
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 3, repeat: Infinity, delay: delay * 2 }}
         >
-          {icon}
+          {/* We leave this empty because we removed the icons! */}
         </motion.div>
 
         <h3 className={`font-display text-3xl md:text-4xl tracking-wider mb-1 ${textGlowClass}`}>
           {name}
         </h3>
+        
         <p className={`font-display text-lg tracking-widest ${colorClass} opacity-80 mb-4`}>
           {title}
         </p>
+        
         <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed">
           {bio}
         </p>
       </div>
-
-      {/* Corner accents */}
-      <div className={`absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 rounded-tl-xl ${colorClass} border-current opacity-40`} />
-      <div className={`absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 rounded-br-xl ${colorClass} border-current opacity-40`} />
     </motion.div>
   );
 };
